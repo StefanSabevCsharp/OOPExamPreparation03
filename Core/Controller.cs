@@ -146,7 +146,20 @@ namespace UniversityCompetition.Core
 
         public string UniversityReport(int universityId)
         {
-            throw new NotImplementedException();
+            IUniversity university = universityRepository.FindById(universityId);
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"*** {university.Name} ***");
+            sb.AppendLine($"Profile: {university.Category}");
+
+            int countOfStudentsInTheUniversity = studentRepository.Models.Count(x => x.University == university);
+
+            sb.AppendLine($"Students admitted: {countOfStudentsInTheUniversity}");
+            sb.AppendLine($"University vacancy: {university.Capacity - countOfStudentsInTheUniversity}");
+
+
+
+
+            return sb.ToString().TrimEnd();
         }
     }
 }
